@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>64x16 P10 Display Simulator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="utility.js"></script>
+    <script src="global.js"></script>
+</head>
+<body>
+<h1> P10 LED Matrix Display Simulator </h1>
+<div class="container">
+<div class="display">
+    <!-- Virtual pixels will be dynamically created here -->
+</div>
+</div>
+<div id="ui-container">
+    <div class="buttons-container">
+        <button class="button" id="scrollButton">Scroll Text</button>
+        <input type="file" id="fileInput" accept=".dmd" style="display: none;">
+        <div id="fileContainer">
+            <button class="button" id="changeButton">Change Text</button>
+            <label for="fileInput" class="button" id="selectButton">Browse</label>
+            <span id="fileNameDisplay">Select file containing display data</span>
+        </div>
+        <button class="button" id="randomGlowButton">Random Glow</button>
+    </div>
+
+    
+
+    <div class="slider-container">
+        <span class="slider-label">Speed:</span>
+        <input type="range" class="slider" id="speedSlider" min="1" max="100" value="50">
+        <span id="speedValue"> 50 </span>
+    </div>
+    <div class="slider-container">
+        <span class="slider-label">Step:</span>
+        <input type="range" class="slider" id="stepSlider" min="1" max="10" value="1">
+        <span id="stepValue"> 1 </span>
+    </div>
+</div>
+
+<script src="ui.js"></script>
+
+</body>
+</html>
