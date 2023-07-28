@@ -19,7 +19,7 @@ def create_bitmap(filedir):
 
 if __name__ == '__main__':
     if (len(sys.argv) <= 1):
-        print("Usage: gen.py <file> <output_filename>")
+        print("Usage: python gen.py <image_file> <output_filename>")
         quit()
 
     filedir = sys.argv[1]
