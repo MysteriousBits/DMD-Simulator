@@ -41,13 +41,15 @@ To generate a display data(.dmd) file:
 
 To use custom font, replace the `fnt.ttf` file with your font or modify the `render.sh` script. The main challenge here is that the display is very low in resolution and only supports 0 or 1(black and white 1-bit image) for setting leds which is indeed our pixels. So it is hard to render sharp and clean text with complex fonts. So the best way to handle this is using a 16 bit bitmap font, which perfectly matches with the pixel grid. Note that you may need to modify the font size and crop value in the `render.sh` to match the image size as `width x 16`.
 
-#### Redndering Bangla
+#### Rendering Bangla
 A sample script is given in `gen_bangla/`. As Bangla letters are much complex, it is hard to make them fit in 16px image. Here I've found the best result with `pango` library and *"ShurmaMJ"* bijoy font as I couldn't find any 16 bit bitmap font for Bangla. So it will be highly appreciated **if someone designs one!**
 
 ### Web App Details:
 **Frontend:** The frontend of the DMD-Simulator includes basic HTML, CSS, and JavaScript components for rendering the virtual LED display on the web browser. Besides the scripts are completely ready to communicate with a real display running with some sort of microcontroller and wifi module.
     
 **Backend:** The backend is mainly written to act as a fake display running behind which can be controlled. Also you can use the server for testing purposes. The backend uses python `flask` for handling HTTP requests and serving display datas. Basically it is an example code for implementing the server side operations while working with a real display.
+    
+A major part of the UI is generated with chatGPT!
 
 ## Using with a Real Display
 You need a microcontroller and a wifi moude to control a P10 display in this project. You may use arduino and esp8266 module for example. Although the simulator is for two 16x32 display, you can use more or less as well. In that case you need to handle it in your code.    
@@ -63,19 +65,19 @@ See rendering mechanism below for knowing in details about rendering the datas i
   
 Note: If you don't use a sd card with arduino(to store the static files) or can't serve the frontend parts from your server, you may need to run the web-app directly from the client side. While doing so make sure to **replace the urls** on `server/static/global.js` with the absolute urls of server. For example `const dispdataUrl = http://192.168.0.101:8000/get/dispdata`.
 
-## Redndering Mechanism
+## Rendering Mechanism
 The generator works in this way:  
 user text input -> render text into image -> crop or resize to fit 16px -> convert to 1-bit image -> extract pixels as bit matrix -> encode the matrix into a bytearray.  
 We achieve this through some image processing with imagemagick and python pillow. Then the rendering process in display is like this:  
 read the bytearray ->  decode into bit matrix -> render pixel by pixel.
     
 Now to decode or access a pixel directly from the encoded array, we need to know the encoding algorithm or the relation between the pixel position and bit position along with the byte index.
-If a pixel is on the i^th^ row and j^th^ coloumn, the formula is like this:
+If a pixel is on the i<sub>th</sub> row and j<sub>th</sub> coloumn, the formula is like this:
 ```
 pixel[i, j] = byteArray[2 * j + floor(i / 8)] | (1 << (i mod 8))
 ```
 
-Basically we iterate the matrix coloumn by coloumn while encoding. Then put the first 8 bits into a new byte and the second 8 bits into another. You should do the same when you set the pixels in your display. Here is a visual representation:
+Basically we iterate the matrix coloumn by coloumn while encoding. Then put the first 8 bits into a new byte and the second 8 bits into another. You should do the same when you set the pixels in your display. Here is a visual representation:  
 ![Encoding Matrix](https://raw.githubusercontent.com/MysteriousBits/DMD-Simulator/main/encode.png)
 
 ## Further Development
