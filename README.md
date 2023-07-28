@@ -4,7 +4,7 @@
 - [Introduction](#introduction)
 - [How to Run](#how-to-run)
 - [Generator](#generator)
-- [Working Principle](#working-principle)
+- [Rendering Bangla](#rendering-bangla)
 - [Web App Details](#web-app-details)
 - [Using with a Real Display](#using-with-a-real-display)
 - [Redndering Mechanism](#rendering-mechanism)
@@ -41,7 +41,7 @@ To generate a display data(.dmd) file:
 
 To use custom font, replace the `fnt.ttf` file with your font or modify the `render.sh` script. The main challenge here is that the display is very low in resolution and only supports 0 or 1(black and white 1-bit image) for setting leds which is indeed our pixels. So it is hard to render sharp and clean text with complex fonts. So the best way to handle this is using a 16 bit bitmap font, which perfectly matches with the pixel grid. Note that you may need to modify the font size and crop value in the `render.sh` to match the image size as `width x 16`.
 
-#### Rendering Bangla
+### Rendering Bangla
 A sample script is given in `gen_bangla/`. As Bangla letters are much complex, it is hard to make them fit in 16px image. Here I've found the best result with `pango` library and *"ShurmaMJ"* bijoy font as I couldn't find any 16 bit bitmap font for Bangla. So it will be highly appreciated **if someone designs one!**
 
 ### Web App Details:
