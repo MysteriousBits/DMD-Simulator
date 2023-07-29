@@ -54,7 +54,7 @@ A major part of the UI is generated with chatGPT!
 ## Using with a Real Display
 You need a microcontroller and a wifi moude to control a P10 display in this project. You may use arduino and esp8266 module for example. Although the simulator is for two 16x32 display, you can use more or less as well. In that case you need to handle it in your code.    
 
-You have to host a server on your wifi module and serve the frontend parts to the client. The important part is to handle the http requests on the server side and act accoringly. You can get an idea looking at `main.py`. You need to handle the following requests:
+You have to host a server on your wifi module and serve the frontend parts to the client. The important part is to handle the http requests on the server side and act accordingly. You can get an idea looking at `main.py`. You need to handle the following requests:
 - `/get/dispdata`: Send the current display data.
 - `/post/dispdata`: Change the current display data.
 - `/set/delay?value=x`: Change speed of scrolling. `x` is integer.
@@ -72,12 +72,12 @@ We achieve this through some image processing with imagemagick and python pillow
 read the bytearray ->  decode into bit matrix -> render pixel by pixel.
     
 Now to decode or access a pixel directly from the encoded array, we need to know the encoding algorithm or the relation between the pixel position and bit position along with the byte index.
-If a pixel is on the i<sub>th</sub> row and j<sub>th</sub> coloumn, the formula is like this:
+If a pixel is on the i<sup>th</sup> row and j<sup>th</sup> coloumn, the formula is like this:
 ```
 pixel[i, j] = byteArray[2 * j + floor(i / 8)] | (1 << (i mod 8))
 ```
 
-Basically we iterate the matrix coloumn by coloumn while encoding. Then put the first 8 bits into a new byte and the second 8 bits into another. You should do the same when you set the pixels in your display. Here is a visual representation:  
+Basically we iterate the matrix coloumn by coloumn while encoding. Then we put the first 8 bits into a new byte (from LSB to MSB) and the second 8 bits into another. You should do the same when you set the pixels in your display. Here is a visual representation:  
 ![Encoding Matrix](https://raw.githubusercontent.com/MysteriousBits/DMD-Simulator/main/encode.png)
 
 ## Further Development
@@ -85,6 +85,6 @@ This project can be extended in several ways:
 - Integrating with real LED display and arduino, as mentioned earlier.
 - Modifying the app to send pixel datas directly after taking string input from user through gui instead of using generator script seperately each time.
 - Adding animations or effects to the display.
-- Designing a 16 bit font for your own language if don't have one yet!
+- Designing a 16 bit font for your own language if you don't have one yet!
   
 Feel free to contribute to the project and add new features or improvements if you want.
